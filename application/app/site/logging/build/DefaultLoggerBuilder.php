@@ -51,6 +51,6 @@ class DefaultLoggerBuilder extends AbstractLoggerBuilder {
     }
 
     protected function createFallBackLogger(): Logger {
-        return $this->createDefaultOut();
+        return AbstractLoggerBuilder::createDefaultOut();
     }
 }

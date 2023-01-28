@@ -11,7 +11,7 @@ class ErrLoggerBuilder extends StreamLoggerBuilder {
     }
 
     protected function createFallBackLogger(): Logger {
-        return $this->createDefaultErr();
+        return AbstractLoggerBuilder::createDefaultErr();
     }
 
     protected function getChannel(): string {

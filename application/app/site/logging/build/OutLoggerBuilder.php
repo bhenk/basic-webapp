@@ -11,7 +11,7 @@ class OutLoggerBuilder extends StreamLoggerBuilder {
     }
 
     protected function createFallBackLogger(): Logger {
-        return $this->createDefaultOut();
+        return AbstractLoggerBuilder::createDefaultOut();
     }
 
     protected function getChannel(): string {

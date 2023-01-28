@@ -28,7 +28,7 @@ abstract class AbstractLoggerBuilder {
         if (count($this->warnings) > 0) {
             $this->warnings[] =
                 "Could not create custom logger. See above for details. Using fallback logger.";
-            $err = $this->createDefaultErr();
+            $err = AbstractLoggerBuilder::createDefaultErr();
             foreach ($this->warnings as $warning) {
                 $err->error($warning);
             }
@@ -37,13 +37,13 @@ abstract class AbstractLoggerBuilder {
         return $logger;
     }
 
-    protected function createDefaultOut() : Logger {
+    public static function createDefaultOut() : Logger {
         $logger = new Logger("out");
         $logger->pushHandler(new StreamHandler('php://stdout', 100));
         return $logger;
     }
 
-    protected function createDefaultErr() : Logger {
+    public static function createDefaultErr() : Logger {
         $logger = new Logger("err");
         $logger->pushHandler(new StreamHandler('php://stderr', 100));
         return $logger;

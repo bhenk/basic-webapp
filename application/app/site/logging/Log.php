@@ -3,7 +3,7 @@
 namespace app\site\logging;
 
 use Stringable;
-use app\site\logging\build\LoggerFactory;
+use app\site\logging\LoggerFactory;
 class Log {
 
     private static ?string $loggerName = null;
