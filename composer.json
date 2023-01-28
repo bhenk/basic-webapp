@@ -1,0 +1,15 @@
+{
+  "name": "vendor_name/basic-webapp",
+  "description": "A basic web application in php",
+  "minimum-stability": "stable",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "hnq",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "monolog/monolog": "3.2.0"
+  }
+}
