@@ -6,7 +6,7 @@ use app\site\conf\Config;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-abstract class StreamLoggerBuilder extends LoggerBuilder {
+abstract class StreamLoggerBuilder extends AbstractLoggerBuilder {
 
     protected abstract function getStream() : string;
 

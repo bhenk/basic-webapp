@@ -4,7 +4,7 @@ namespace app\site\logging\build;
 
 use Monolog\Logger;
 
-class StdErrLoggerBuilder extends StreamLoggerBuilder {
+class ErrLoggerBuilder extends StreamLoggerBuilder {
 
     protected function getStream(): string {
         return "php://stderr";

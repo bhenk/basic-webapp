@@ -5,7 +5,7 @@ namespace app\site\logging\build;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-abstract class LoggerBuilder {
+abstract class AbstractLoggerBuilder {
 
     const CHANNEL = "channel";
     const LOG_FILE = "log_file";

@@ -6,7 +6,7 @@ use app\site\conf\Config;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 
-class DefaultLoggerBuilder extends LoggerBuilder {
+class DefaultLoggerBuilder extends AbstractLoggerBuilder {
 
     public function buildLogger(): Logger {
         $this->warnings = [];
