@@ -1,20 +1,20 @@
 <?php
 
-namespace app\site\logging;
+namespace app\site\logging\build;
 
 use Monolog\Logger;
 
-class StdOutLoggerBuilder extends StreamLoggerBuilder {
+class StdErrLoggerBuilder extends StreamLoggerBuilder {
 
     protected function getStream(): string {
-        return "php://stdout";
+        return "php://stderr";
     }
 
     protected function createFallBackLogger(): Logger {
-        return $this->createDefaultOut();
+        return $this->createDefaultErr();
     }
 
     protected function getChannel(): string {
-        return "out";
+        return "err";
     }
 }

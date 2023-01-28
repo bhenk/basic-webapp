@@ -1,6 +1,6 @@
 <?php
 
-namespace app\site\logging;
+namespace app\site\logging\build;
 
 use app\site\conf\Config;
 use Monolog\Handler\StreamHandler;

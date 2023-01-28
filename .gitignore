@@ -1,1 +1,4 @@
+/.idea/
 /vendor/
+/application/logs/
+/composer.phar
