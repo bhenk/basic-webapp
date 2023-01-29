@@ -16,7 +16,8 @@ class AbstractLoggerBuilderTest extends TestCase {
             "Expected a logger");
 
         $handler = $out->getHandlers()[0];
-        assertInstanceOf(StreamHandler::class, $handler);
+        assertInstanceOf(StreamHandler::class, $handler,
+            "Expected a StreamHandler as first Handler");
     }
 
     public function testCreateDefaultErr() {
@@ -25,6 +26,7 @@ class AbstractLoggerBuilderTest extends TestCase {
             "Expected a logger");
 
         $handler = $err->getHandlers()[0];
-        assertInstanceOf(StreamHandler::class, $handler);
+        assertInstanceOf(StreamHandler::class, $handler,
+            "Expected a StreamHandler as first Handler");
     }
 }

@@ -6,6 +6,7 @@ use app\site\logging\build\OutLoggerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
+use function PHPUnit\Framework\assertEmpty;
 use function PHPUnit\Framework\assertInstanceOf;
 
 class OutLoggerBuilderTest extends TestCase {
@@ -14,12 +15,15 @@ class OutLoggerBuilderTest extends TestCase {
         $builder = new OutLoggerBuilder();
         $logger = $builder->buildLogger();
 
-        assertInstanceOf(Logger::class, $logger);
+        assertInstanceOf(Logger::class, $logger,
+            "Expected a logger");
 
         $handler = $logger->getHandlers()[0];
-        assertInstanceOf(StreamHandler::class, $handler);
+        assertInstanceOf(StreamHandler::class, $handler,
+            "Expected a StreamHandler as first Handler");
 
-        self::assertEmpty($builder->getWarnings());
+        assertEmpty($builder->getWarnings(),
+            "Normal build process. No warnings expected");
     }
 
 }

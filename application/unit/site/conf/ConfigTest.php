@@ -31,13 +31,13 @@ class ConfigTest extends TestCase {
         ];
         Config::get()->setConfiguration($config);
         assertEquals(1, Config::get()->getSize(),
-            "Now there should only be 1 item in configuration");
+            "Now there should only be 1 item in the configuration");
 
         $myConfig = Config::get()->getConfigurationFor(get_class($this));
         assertEquals("Joe", $myConfig["name"],
             "The name in myConfig should be 'Joe'");
         assertEquals(3, count($myConfig["skills"]),
-            "Joe has 3 skills");
+            "Joe is expected to have 3 skills");
     }
 
     public function testSetConfigurationFor() {
@@ -61,17 +61,17 @@ class ConfigTest extends TestCase {
 
         $config = Config::get()->getConfiguration();
         assertEquals($original_count + 1, count($config),
-            "count after update should be 1 more than original count");
+            "Count after update should be 1 more than original count");
 
         $myReturnedConfig = Config::get()->getConfigurationFor(get_class($this));
         assertEquals($myConfig, $myReturnedConfig,
-            "the returned config should be equal to the set config");
+            "The returned config should be equal to the set config");
     }
 
     public function testGetConfiguration() {
         $config = Config::get()->getConfiguration();
         assertNotEmpty($config,
-            "Deployment configuration array is empty");
+            "Deployment configuration array should not be empty");
     }
 
     public function testGetConfigurationFor() {
@@ -82,12 +82,15 @@ class ConfigTest extends TestCase {
 
     public function testGetDefaultConfigFileName() {
         $file = Config:: getDefaultConfigFileName();
-        assertFileExists($file);
-        assertFileIsReadable($file);
+        assertFileExists($file,
+            "The configuration file for deployment is expected to be at this location");
+        assertFileIsReadable($file,
+            "The configuration file for deployment is expected to be readable");
         $expected = dirname(__DIR__, 3)
             . DIRECTORY_SEPARATOR . "config"
             . DIRECTORY_SEPARATOR . "config.php";
-        assertEquals($expected, $file, "Configuration filename not expected");
+        assertEquals($expected, $file,
+            "Configuration filename for deployment is other than expected");
     }
 
     public function testLoad() {
@@ -95,11 +98,11 @@ class ConfigTest extends TestCase {
         assertEquals($this->getOriginalConfiguration(), Config::get()->getConfiguration(),
             "Load with null filename should default to default config filename");
 
-
         $test_file = dirname(__FILE__) . DIRECTORY_SEPARATOR . "test_file.php";
         Config::get()->load($test_file);
         $config = Config::get()->getConfiguration();
-        assertTrue($config["foo"]);
+        assertTrue($config["foo"],
+            "The loaded configuration should have these properties for keys 'foo' and 'bar'");
         assertFalse($config["bar"]);
 
         $test_file = "/foo/bar";
