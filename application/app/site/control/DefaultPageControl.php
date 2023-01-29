@@ -11,19 +11,6 @@ class DefaultPageControl {
 
     private array $scripts = [];
 
-    /**
-     * Get the default page template.
-     *
-     * @return string absolute filepath to a php template containing boilerplate html-code.
-     * @see ../../templates/pages/a_page.php
-     */
-    public static function getDefaultPageTemplate(): string {
-        return dirname(__FILE__, 3)
-            . DIRECTORY_SEPARATOR . "templates"
-            . DIRECTORY_SEPARATOR . "pages"
-            . DIRECTORY_SEPARATOR . "a_page.php";
-    }
-
     function __construct(protected array   $url_path = [],
                          protected ?string $page_template = null,
                          protected ?string $title = null,
@@ -31,7 +18,7 @@ class DefaultPageControl {
         Log::debug(__METHOD__, $this->url_path);
     }
 
-    public function getUrlPath() : array {
+    public function getUrlPath(): array {
         return $this->url_path;
     }
 
@@ -91,6 +78,19 @@ class DefaultPageControl {
     private function getTemplate(): string {
         if (empty($this->page_template)) $this->page_template = self::getDefaultPageTemplate();
         return $this->page_template;
+    }
+
+    /**
+     * Get the default page template.
+     *
+     * @return string absolute filepath to a php template containing boilerplate html-code.
+     * @see ../../templates/pages/a_page.php
+     */
+    public static function getDefaultPageTemplate(): string {
+        return dirname(__FILE__, 3)
+            . DIRECTORY_SEPARATOR . "templates"
+            . DIRECTORY_SEPARATOR . "pages"
+            . DIRECTORY_SEPARATOR . "a_page.php";
     }
 
     protected function renderTitle() {

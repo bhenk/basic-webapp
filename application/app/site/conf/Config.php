@@ -2,7 +2,7 @@
 
 namespace app\site\conf;
 
-use app\site\logging\Log;
+use Exception;
 
 class Config {
 
@@ -10,14 +10,40 @@ class Config {
     private array $config = [];
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function __construct() {
         $this->load();
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
+     */
+    public function load(string $config_file = null): void {
+        if (!isset($config_file)) {
+            $config_file = $this->getDefaultConfigFileName();
+        }
+        if (!file_exists($config_file)) {
+            throw new Exception("File does not exist: " . $config_file);
+        }
+        $this->config = require $config_file;
+    }
+
+    public static function getDefaultConfigFileName(): string {
+        return dirname(__DIR__, 3)
+            . DIRECTORY_SEPARATOR . "config"
+            . DIRECTORY_SEPARATOR . "config.php";
+    }
+
+    public static function get(): Config {
+        if (self::$instance == null)
+            self::$instance = new Config();
+
+        return self::$instance;
+    }
+
+    /**
+     * @throws Exception
      */
     public function getConfiguration(): array {
         return $this->config;
@@ -25,7 +51,7 @@ class Config {
 
     public function getConfigurationFor(string $name) {
         if (!isset($this->config[$name])) {
-            throw new \Exception("Configuration '" . $name . "' not set or null");
+            throw new Exception("Configuration '" . $name . "' not set or null");
         }
         return $this->config[$name];
     }
@@ -44,32 +70,6 @@ class Config {
 
     public function getSize() {
         return count($this->config);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function load(string $config_file = null): void {
-        if (!isset($config_file)) {
-            $config_file = $this->getDefaultConfigFileName();
-        }
-        if (!file_exists($config_file)) {
-            throw new \Exception("File does not exist: " . $config_file);
-        }
-        $this->config = require $config_file;
-    }
-
-    public static function getDefaultConfigFileName(): string {
-        return dirname(__DIR__, 3)
-            . DIRECTORY_SEPARATOR . "config"
-            . DIRECTORY_SEPARATOR . "config.php";
-    }
-
-    public static function get(): Config {
-        if (self::$instance == null)
-            self::$instance = new Config();
-
-        return self::$instance;
     }
 
 

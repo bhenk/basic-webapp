@@ -3,15 +3,11 @@
 namespace app\site\logging\build;
 
 use app\site\conf\Config;
+use Exception;
 use Monolog\Handler\StreamHandler;
-
 use Monolog\Logger;
 
 abstract class StreamLoggerBuilder extends AbstractLoggerBuilder {
-
-    protected abstract function getStream() : string;
-
-    protected abstract function getChannel() : string;
 
     public function buildLogger(): Logger {
         $this->warnings = [];
@@ -22,7 +18,7 @@ abstract class StreamLoggerBuilder extends AbstractLoggerBuilder {
             $logger = new Logger($validated[self::CHANNEL]);
             $logger->pushHandler(new StreamHandler($this->getStream(), $validated[self::LOG_LEVEL]));
             //$logger->pushProcessor(new IntrospectionProcessor());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->warnings[] = $e->getMessage();
         }
         return $this->checkWarnings($logger);
@@ -40,4 +36,8 @@ abstract class StreamLoggerBuilder extends AbstractLoggerBuilder {
         }
         return $validated;
     }
+
+    protected abstract function getChannel(): string;
+
+    protected abstract function getStream(): string;
 }

@@ -4,6 +4,7 @@ namespace app\site\handle;
 
 use app\site\control\DefaultPageControl;
 use app\site\logging\Log;
+use Exception;
 
 class AppHandler {
     private static $instance = NULL;
@@ -31,7 +32,7 @@ class AppHandler {
                     echo "test";
                     return;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             //Log::error('Catch all', array('exception' => $e));
             ob_end_clean();
         }

@@ -3,6 +3,7 @@
 namespace app\site\logging\build;
 
 use app\site\conf\Config;
+use Exception;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 
@@ -26,7 +27,7 @@ class DefaultLoggerBuilder extends AbstractLoggerBuilder {
                 $logger->pushHandler($app_handler);
                 $logger->pushHandler($err_handler);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->warnings[] = $e->getMessage();
         }
         return $this->checkWarnings($logger);

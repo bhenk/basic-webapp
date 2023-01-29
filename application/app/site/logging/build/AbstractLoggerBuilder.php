@@ -18,6 +18,12 @@ abstract class AbstractLoggerBuilder {
     protected array $warnings = [];
     protected bool $quiet = false;
 
+    public static function createDefaultOut(): Logger {
+        $logger = new Logger("out");
+        $logger->pushHandler(new StreamHandler('php://stdout', 100));
+        return $logger;
+    }
+
     /**
      * @return bool
      */
@@ -32,11 +38,13 @@ abstract class AbstractLoggerBuilder {
         $this->quiet = $quiet;
     }
 
-    public abstract function buildLogger() : Logger;
+    public abstract function buildLogger(): Logger;
 
-    protected abstract function createFallBackLogger() : Logger;
+    public function getWarnings() {
+        return $this->warnings;
+    }
 
-    protected function checkWarnings(?Logger $logger) : Logger {
+    protected function checkWarnings(?Logger $logger): Logger {
         if (is_null($logger)) {
             $this->warnings[] = "Unable to create logger";
         }
@@ -54,20 +62,12 @@ abstract class AbstractLoggerBuilder {
         return $logger;
     }
 
-    public function getWarnings() {
-        return $this->warnings;
-    }
-
-    public static function createDefaultOut() : Logger {
-        $logger = new Logger("out");
-        $logger->pushHandler(new StreamHandler('php://stdout', 100));
-        return $logger;
-    }
-
-    public static function createDefaultErr() : Logger {
+    public static function createDefaultErr(): Logger {
         $logger = new Logger("err");
         $logger->pushHandler(new StreamHandler('php://stderr', 100));
         return $logger;
     }
+
+    protected abstract function createFallBackLogger(): Logger;
 
 }

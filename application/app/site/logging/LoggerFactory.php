@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
 class LoggerFactory {
 
     private static ?LoggerFactory $instance = null;
+    private array $loggers = [];
 
     public static function get(): LoggerFactory {
         if (self::$instance == null)
@@ -18,9 +19,7 @@ class LoggerFactory {
         return self::$instance;
     }
 
-    private array $loggers = [];
-
-    public function getLogger(Type $type): LoggerInterface  {
+    public function getLogger(Type $type): LoggerInterface {
         if (!isset($this->loggers[$type->name])) {
             switch ($type) {
                 case Type::default :
