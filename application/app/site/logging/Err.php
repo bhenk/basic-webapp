@@ -4,9 +4,9 @@ namespace app\site\logging;
 
 use Stringable;
 
-class Log {
+class Err {
 
-    private static Type $type = Type::default;
+    private static Type $type = Type::stderr;
 
     public static function getType(): Type {
         return self::$type;

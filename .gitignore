@@ -2,3 +2,5 @@
 /vendor/
 /application/logs/
 /composer.phar
+/phpunit.phar
+/.phpunit.result.cache

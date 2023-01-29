@@ -1,12 +1,20 @@
 <?php
+use \Monolog\Level;
+/**
+ * Classes that need configuration can do so here.
+ *
+ * Then get their configuration by
+ * <code>$config = Config::get()->getConfiguration(get_class($this));</code>
+ */
+
 return [
     "app\site\logging\build\OutLoggerBuilder" => [
         "channel" => "out",
-        "log_level" => 100,
+        "log_level" => Level::Debug,
     ],
     "app\site\logging\build\ErrLoggerBuilder" => [
         "channel" => "err",
-        "log_level" => 100,
+        "log_level" => Level::Debug,
     ],
     "app\site\logging\build\DefaultLoggerBuilder" => [
         "channel" => "app",
@@ -18,8 +26,8 @@ return [
             . DIRECTORY_SEPARATOR . "logs"
             . DIRECTORY_SEPARATOR . "err"
             . DIRECTORY_SEPARATOR . "err_log.log",
-        "log_level" => 100,
-        "err_level" => 400,
+        "log_level" => Level::Debug,
+        "err_level" => Level::Error,
         "max_log_files" => 5,
         "max_err_files" => 5,
     ],

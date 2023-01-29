@@ -6,8 +6,8 @@ defined("APP_ROOT")
 
 $vendor_autoload = dirname(__FILE__, 3) . DIRECTORY_SEPARATOR . "vendor". DIRECTORY_SEPARATOR."autoload.php";
 
-//echo "application root = '".APP_ROOT."'<br/>";
-//echo "vendor autoload  = '".$vendor_autoload."'<br/>";
+//echo "\napplication root = '".APP_ROOT."'<br/>";
+//echo "\nvendor autoload  = '".$vendor_autoload."'<br/>\n";
 
 spl_autoload_register(function($para) {
     $path = APP_ROOT.DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, $para).'.php';

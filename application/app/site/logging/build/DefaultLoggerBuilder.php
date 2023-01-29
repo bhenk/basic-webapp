@@ -12,7 +12,7 @@ class DefaultLoggerBuilder extends AbstractLoggerBuilder {
         $this->warnings = [];
         $logger = null;
         try {
-            $config = Config::get()->getConfiguration(get_class($this));
+            $config = Config::get()->getConfigurationFor(get_class($this));
             if ($this->validateConfig($config)) {
                 $app_handler = new RotatingFileHandler(
                     $config[self::LOG_FILE],

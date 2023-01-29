@@ -16,6 +16,21 @@ abstract class AbstractLoggerBuilder {
     const MAX_ERR_FILES = "max_err_files";
 
     protected array $warnings = [];
+    protected bool $quiet = false;
+
+    /**
+     * @return bool
+     */
+    public function isQuiet(): bool {
+        return $this->quiet;
+    }
+
+    /**
+     * @param bool $quiet
+     */
+    public function setQuiet(bool $quiet): void {
+        $this->quiet = $quiet;
+    }
 
     public abstract function buildLogger() : Logger;
 
@@ -28,13 +43,19 @@ abstract class AbstractLoggerBuilder {
         if (count($this->warnings) > 0) {
             $this->warnings[] =
                 "Could not create custom logger. See above for details. Using fallback logger.";
-            $err = AbstractLoggerBuilder::createDefaultErr();
-            foreach ($this->warnings as $warning) {
-                $err->error($warning);
+            if (!$this->quiet) {
+                $err = AbstractLoggerBuilder::createDefaultErr();
+                foreach ($this->warnings as $warning) {
+                    $err->error($warning);
+                }
             }
             $logger = $this->createFallBackLogger();
         }
         return $logger;
+    }
+
+    public function getWarnings() {
+        return $this->warnings;
     }
 
     public static function createDefaultOut() : Logger {
